@@ -1,0 +1,47 @@
+#the codec is in nec format captured by using esphome on a nodemcu 
+
+
+---------format -------
+ Button_name:
+ codes
+-----------------------
+ 
+ 
+ 
+ power:
+ Received NEC: address=0x01FE, command=0x48B7
+ mode:
+ Received NEC: address=0x01FE, command=0x58A7
+ mute:
+ Received NEC: address=0x01FE, command=0x7887
+ play:
+ Received NEC: address=0x01FE, command=0x807F
+ previous:
+ Received NEC: address=0x01FE, command=0x40BF
+ next:
+ Received NEC: address=0x01FE, command=0xC03F
+ EQ:
+ Received NEC: address=0x01FE, command=0x20DF
+ vo-:
+ Received NEC: address=0x01FE, command=0xA05F
+ vo+:
+ Received NEC: address=0x01FE, command=0x609F
+
+ 1:
+ Received NEC: address=0x01FE, command=0x50AF
+ 2:
+ Received NEC: address=0x01FE, command=0xD827
+ 3:
+ Received NEC: address=0x01FE, command=0xF807
+ 4:
+ Received NEC: address=0x01FE, command=0x30CF
+ 5:
+ Received NEC: address=0x01FE, command=0xB04F
+ 6:
+ Received NEC: address=0x01FE, command=0x708F
+ 7:
+ Received NEC: address=0x01FE, command=0x00FF
+ 8:
+ Received NEC: address=0x01FE, command=0xF00F
+ 9:
+ Received NEC: address=0x01FE, command=0x9867 
