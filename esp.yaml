@@ -1,0 +1,143 @@
+esphome:
+  name: hallway
+  platform: ESP8266
+  board: nodemcuv2
+
+wifi:
+  ssid: "YOUR_SSID"
+  password: "YOUR_PASSWORD"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Hallway Fallback Hotspot"
+    password: "unsecure"
+
+captive_portal:
+
+
+switch:
+  - platform: gpio
+    id: relay_1
+    pin: D0
+    name: "Tubelight"
+    inverted: yes
+  - platform: gpio
+    id: relay_2
+    pin: D1
+    name: "Bulb"
+    inverted: yes
+  - platform: gpio
+    id: relay_3
+    pin: D4
+    name: "Fan"
+    inverted: yes
+  - platform: gpio
+    id: relay_4
+    pin: D5
+    name: "HallwayBulb"
+    inverted: yes
+
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: D2
+      mode: INPUT_PULLUP
+    name: "Main Gate"
+    device_class: window
+  - platform: gpio
+    pin:
+      number: D3
+      mode: INPUT_PULLUP
+    name: "Door Bell"
+    filters:
+      - invert:
+    device_class: window
+  - platform: gpio
+    pin:
+      number: D6
+      mode: INPUT_PULLUP
+    name: "Electronic Door"
+    device_class: window
+  - platform: gpio
+    pin:
+      number: D8
+      mode: INPUT_PULLUP
+    name: "Outdoor Switch"
+    device_class: window
+  
+  - platform: remote_receiver
+    id: all_on
+    nec:
+      address: 0x01FE
+      command: 0x48B7
+    on_press:
+      then:
+        - switch.turn_on: relay_1
+        - switch.turn_on: relay_2
+        - switch.turn_on: relay_3
+        - switch.turn_on: relay_4
+  - platform: remote_receiver
+    id: all_off
+    nec:
+      address: 0x01FE
+      command: 0x58A7
+    on_press:
+      then:
+        - switch.turn_off: relay_1
+        - switch.turn_off: relay_2
+        - switch.turn_off: relay_3
+        - switch.turn_off: relay_4
+  - platform: remote_receiver
+    id: tog_1
+    nec:
+      address: 0x01FE
+      command: 0x50AF
+    on_press:
+      then:
+        - switch.toggle: relay_1
+  - platform: remote_receiver
+    id: tog_2
+    nec:
+      address: 0x01FE
+      command: 0xD827
+    on_press:
+      then:
+        - switch.toggle: relay_2
+  - platform: remote_receiver
+    id: tog_3
+    nec:
+      address: 0x01FE
+      command: 0xF807
+    on_press:
+      then:
+        - switch.toggle: relay_3
+        
+  - platform: remote_receiver
+    id: tog_4
+    nec:
+      address: 0x01FE
+      command: 0x30CF
+    on_press:
+      then:
+        - switch.toggle: relay_4
+
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: HallWay ESP IP 
+      
+remote_receiver:
+  pin:
+    number: D7
+    inverted: True
+    mode: INPUT_PULLUP
+  dump: all
+    
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
